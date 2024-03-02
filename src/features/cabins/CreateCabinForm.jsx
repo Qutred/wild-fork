@@ -30,7 +30,9 @@ function CreateCabinForm() {
     },
   });
 
-  const onSubmit = (data) => mutate(data);
+  const onSubmit = (data) => {
+    mutate({ ...data, image: data.image[0] });
+  };
 
   const onError = (errors) => {
     console.log(errors);
@@ -38,7 +40,7 @@ function CreateCabinForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      <FormRow label={'Cabin name'} error={errors?.name?.message}>
+      <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
@@ -48,7 +50,7 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label={'Maximum capacity'} error={errors?.maxCapacity?.message}>
+      <FormRow label="Maximum capacity" error={errors?.maxCapacity?.message}>
         <Input
           type="number"
           id="maxCapacity"
@@ -62,7 +64,7 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label={'Regular price'} error={errors?.regularPrice?.message}>
+      <FormRow label="Regular price" error={errors?.regularPrice?.message}>
         <Input
           type="number"
           id="regularPrice"
@@ -76,7 +78,7 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label={'Discount'} error={errors?.discount?.message}>
+      <FormRow label="Discount" error={errors?.discount?.message}>
         <Input
           type="number"
           id="discount"
@@ -91,7 +93,7 @@ function CreateCabinForm() {
         />
       </FormRow>
       <FormRow
-        label={'Description for website'}
+        label="Description for website"
         error={errors?.description?.message}
       >
         <Textarea
@@ -104,8 +106,15 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label={'Cabin photo'}>
-        <FileInput disabled={isCreating} id="image" accept="image/*" />
+      <FormRow label="Cabin photo">
+        <FileInput
+          disabled={isCreating}
+          id="image"
+          accept="image/*"
+          {...register('image', {
+            required: 'This field is required',
+          })}
+        />
       </FormRow>
 
       <FormRow>
