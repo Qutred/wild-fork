@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -35,36 +36,29 @@ const FilterButton = styled.button`
   }
 `;
 
-const Filter = () => {
+const Filter = ({ filterField, options = [] }) => {
   let [searchParams, setSearchParams] = useSearchParams();
 
-  const activeDiscount = searchParams.get('discount') ?? 'all';
+  const currentFilter = searchParams.get(filterField) ?? options.at(0).value;
 
   const handleClick = (value) => {
-    searchParams.set('discount', value);
+    searchParams.set(filterField, value);
     setSearchParams(searchParams);
   };
 
+  if (!options.length) return null;
+
   return (
     <StyledFilter>
-      <FilterButton
-        $active={activeDiscount === 'all'}
-        onClick={() => handleClick('all')}
-      >
-        All
-      </FilterButton>
-      <FilterButton
-        $active={activeDiscount === 'no-discount'}
-        onClick={() => handleClick('no-discount')}
-      >
-        No discount
-      </FilterButton>
-      <FilterButton
-        $active={activeDiscount === 'with-discount'}
-        onClick={() => handleClick('with-discount')}
-      >
-        With discount
-      </FilterButton>
+      {options.map((option) => (
+        <FilterButton
+          key={option.value}
+          $active={currentFilter === option.value}
+          onClick={() => handleClick(option.value)}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
     </StyledFilter>
   );
 };
