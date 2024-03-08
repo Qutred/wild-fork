@@ -11,6 +11,7 @@ const CabinTable = () => {
 
   if (isLoading) return <Spinner />;
 
+  //FILTER
   const filterValue = searchParams.get('discount') ?? 'all';
 
   let filteredCabins;
@@ -25,6 +26,12 @@ const CabinTable = () => {
     default:
       filteredCabins = cabins;
   }
+
+  //SORT
+  const sortValue = searchParams.get('sortBy') ?? 'name-asc';
+  const [field, direction] = sortValue.split('-');
+  const sortModifier = direction === 'asc' ? 1 : -1;
+  filteredCabins.sort((a, b) => (a[field] - b[field]) * sortModifier);
 
   return (
     <Menus>
