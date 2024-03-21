@@ -6,7 +6,7 @@ const useBooking = () => {
   const { bookingId } = useParams();
   const {
     isLoading,
-    data: booking = {},
+    data: booking,
     error,
   } = useQuery({
     queryKey: ['booking', bookingId],
