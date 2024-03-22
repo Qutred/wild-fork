@@ -15,6 +15,7 @@
 <p align="center">The Wild Fork app allows you to easily manage bookings, sales, check-ins, and occupancy rates..</p>
 
 <div align="center">
+<a href="#technologies-used">Technologies Used</a> • <a href="#quick-start">Quick Start</a> • <a href="#how-it-works">How It Works</a> • 
   <a href="https://wild-fork.vercel.app/login" align="Center">Live Server</a>
 </div>
 
